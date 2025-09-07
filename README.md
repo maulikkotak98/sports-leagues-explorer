@@ -63,7 +63,7 @@ src/
 
 ## Demo
 
-![Demo Video](./demo/demo.mov)
+**[📹 Download Demo Video](https://github.com/maulikkotak98/sports-leagues-explorer/raw/main/demo/demo.mov)**
 
 *Click to download and view the demo video*
 
