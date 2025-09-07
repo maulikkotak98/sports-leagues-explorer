@@ -61,6 +61,10 @@ src/
 - **Vite** - Fast development server and optimized production builds
 - **Axios** - HTTP client with request/response interceptors
 
+## Demo
+
+https://github.com/user-attachments/assets/demo.mov
+
 ## Getting Started
 
 ```bash
