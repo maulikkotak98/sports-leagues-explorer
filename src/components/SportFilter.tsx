@@ -1,7 +1,8 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import { FormControl, InputLabel, Select, MenuItem } from '@mui/material';
 import type { SelectChangeEvent } from '@mui/material';
-import { UI_CONFIG } from '../constants';
+
+import { UI_CONFIG, DEFAULT_SPORT } from '../constants';
 
 interface SportFilterProps {
   value: string;
@@ -9,21 +10,14 @@ interface SportFilterProps {
   sports: string[];
 }
 
-/**
- * SportFilter component for filtering leagues by sport type
- * Optimized with React.memo to prevent unnecessary re-renders
- */
-export const SportFilter: React.FC<SportFilterProps> = React.memo(({
+const SportFilter: React.FC<SportFilterProps> = ({
   value,
   onChange,
   sports,
 }) => {
-  const handleChange = useCallback(
-    (event: SelectChangeEvent) => {
-      onChange(event.target.value);
-    },
-    [onChange]
-  );
+  const handleChange = (event: SelectChangeEvent) => {
+    onChange(event.target.value);
+  };
 
   return (
     <FormControl fullWidth variant="outlined">
@@ -37,8 +31,8 @@ export const SportFilter: React.FC<SportFilterProps> = React.memo(({
           borderRadius: 2,
         }}
       >
-        <MenuItem value="">
-          <em>{UI_CONFIG.ALL_SPORTS_LABEL}</em>
+        <MenuItem value={DEFAULT_SPORT}>
+          <em>{DEFAULT_SPORT}</em>
         </MenuItem>
         {sports.map((sport) => (
           <MenuItem key={sport} value={sport}>
@@ -48,4 +42,6 @@ export const SportFilter: React.FC<SportFilterProps> = React.memo(({
       </Select>
     </FormControl>
   );
-});
+};
+
+export default React.memo(SportFilter);

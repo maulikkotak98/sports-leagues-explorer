@@ -1,10 +1,6 @@
-/**
- * Application constants
- */
-
 // API Configuration
 export const API_CONFIG = {
-  BASE_URL: 'https://www.thesportsdb.com/api/v1/json/3',
+  BASE_URL: 'https://www.thesportsdb.com/api/v1/json/3', // Preferable to use .env file
   TIMEOUT: 10000,
   ENDPOINTS: {
     ALL_LEAGUES: '/all_leagues.php',
@@ -24,14 +20,15 @@ export const UI_CONFIG = {
   MAX_WIDTH: '1500px',
   SEARCH_PLACEHOLDER: 'Search leagues by name or alternate name...',
   FILTER_LABEL: 'Filter by Sport',
-  ALL_SPORTS_LABEL: 'All Sports',
 } as const;
 
 // Error Messages
 export const ERROR_MESSAGES = {
-  FAILED_TO_LOAD_LEAGUES: 'Failed to load sports leagues. Please check your internet connection and try again.',
+  FAILED_TO_LOAD_LEAGUES:
+    'Failed to load sports leagues. Please check your internet connection and try again.',
   FAILED_TO_LOAD_BADGE: 'Failed to load season badge. Please try again.',
-  NO_LEAGUES_FOUND: 'No leagues found matching your search criteria. Try adjusting your filters.',
+  NO_LEAGUES_FOUND:
+    'No leagues found matching your search criteria. Try adjusting your filters.',
   NO_BADGE_AVAILABLE: 'No season badge available for this league.',
 } as const;
 
@@ -45,3 +42,5 @@ export const QUERY_KEYS = {
   LEAGUES: ['leagues'] as const,
   SEASON_BADGE: (leagueId: string) => ['season-badge', leagueId] as const,
 } as const;
+
+export const DEFAULT_SPORT = 'All Sports';

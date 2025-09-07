@@ -4,7 +4,7 @@ import { sportsApi } from '../services/api';
 import { QUERY_KEYS, CACHE_CONFIG } from '../constants';
 
 /**
- * Custom hook for fetching sports leagues data
+ * Custom hook for fetching all leagues
  * @returns Query result with leagues data, loading state, and error state
  */
 export const useLeagues = () => {
@@ -13,12 +13,5 @@ export const useLeagues = () => {
     queryFn: sportsApi.getAllLeagues,
     staleTime: CACHE_CONFIG.STALE_TIME,
     gcTime: CACHE_CONFIG.GC_TIME,
-    retry: (failureCount, error) => {
-      // Don't retry on 4xx errors (client errors)
-      if (error && 'status' in error && typeof error.status === 'number') {
-        return error.status >= 500 && failureCount < 3;
-      }
-      return failureCount < 3;
-    },
   });
 };

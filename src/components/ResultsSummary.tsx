@@ -9,7 +9,7 @@ interface ResultsSummaryProps {
   debouncedSearchTerm: string;
 }
 
-export const ResultsSummary: React.FC<ResultsSummaryProps> = ({
+const ResultsSummary: React.FC<ResultsSummaryProps> = ({
   filteredCount,
   totalCount,
   selectedSport,
@@ -18,23 +18,23 @@ export const ResultsSummary: React.FC<ResultsSummaryProps> = ({
 }) => {
   return (
     <Box sx={{ mb: 2, px: { xs: 1, sm: 0 } }}>
-      <Typography 
+      <Typography
         variant="body2"
         color="text.secondary"
         sx={{
-          fontWeight: 500
+          fontWeight: 500,
         }}
       >
         Showing {filteredCount} of {totalCount} leagues
         {selectedSport && ` in ${selectedSport}`}
         {debouncedSearchTerm && ` matching "${debouncedSearchTerm}"`}
         {searchTerm !== debouncedSearchTerm && (
-          <Typography 
-            component="span" 
-            variant="caption" 
-            sx={{ 
-              ml: 1, 
-              fontStyle: 'italic'
+          <Typography
+            component="span"
+            variant="caption"
+            sx={{
+              ml: 1,
+              fontStyle: 'italic',
             }}
           >
             (searching...)
@@ -44,3 +44,5 @@ export const ResultsSummary: React.FC<ResultsSummaryProps> = ({
     </Box>
   );
 };
+
+export default ResultsSummary;

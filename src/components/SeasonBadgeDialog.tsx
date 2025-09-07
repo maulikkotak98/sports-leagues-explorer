@@ -10,6 +10,7 @@ import {
   IconButton,
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
+
 import type { League } from '../types/api';
 import { useSeasonBadge } from '../hooks/useSeasonBadge';
 import { ERROR_MESSAGES, LOADING_MESSAGES } from '../constants';
@@ -21,44 +22,41 @@ interface SeasonBadgeDialogProps {
   leagueId: string | null;
 }
 
-/**
- * Dialog component for displaying season badge information
- * Optimized with React.memo to prevent unnecessary re-renders
- */
-export const SeasonBadgeDialog: React.FC<SeasonBadgeDialogProps> = React.memo(({
+const SeasonBadgeDialog: React.FC<SeasonBadgeDialogProps> = ({
   open,
   onClose,
   league,
   leagueId,
 }) => {
   const { data: seasonData, isLoading, error } = useSeasonBadge(leagueId);
-  
-  const firstSeasonWithBadge = seasonData?.seasons?.find(season => season.strBadge);
 
-  const handleImageError = useCallback((event: React.SyntheticEvent<HTMLImageElement>) => {
-    const target = event.target as HTMLImageElement;
-    target.style.display = 'none';
-  }, []);
+  const firstSeasonWithBadge = seasonData?.seasons?.find(
+    (season) => season.strBadge,
+  );
+
+  const handleImageError = useCallback(
+    (event: React.SyntheticEvent<HTMLImageElement>) => {
+      const target = event.target as HTMLImageElement;
+      target.style.display = 'none';
+    },
+    [],
+  );
 
   return (
-    <Dialog 
-      open={open} 
-      onClose={onClose}
-      maxWidth="sm"
-      fullWidth
-    >
-      <DialogTitle sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+    <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
+      <DialogTitle
+        sx={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+        }}
+      >
         {league.strLeague} - Season Badge
-        <IconButton
-          aria-label="close"
-          onClick={onClose}
-          sx={{
-            color: (theme) => theme.palette.grey[500],
-          }}
-        >
+        <IconButton aria-label="close" onClick={onClose}>
           <CloseIcon />
         </IconButton>
       </DialogTitle>
+
       <DialogContent>
         {isLoading && (
           <Box display="flex" justifyContent="center" p={3}>
@@ -68,7 +66,7 @@ export const SeasonBadgeDialog: React.FC<SeasonBadgeDialogProps> = React.memo(({
             </Typography>
           </Box>
         )}
-        
+
         {error && (
           <Alert severity="error" sx={{ mb: 2 }}>
             {ERROR_MESSAGES.FAILED_TO_LOAD_BADGE}
@@ -77,28 +75,39 @@ export const SeasonBadgeDialog: React.FC<SeasonBadgeDialogProps> = React.memo(({
             </Typography>
           </Alert>
         )}
-        
+
         {!isLoading && !error && seasonData && (
           <>
             {firstSeasonWithBadge?.strBadge ? (
               <Box textAlign="center" p={2}>
-                <img 
-                  src={firstSeasonWithBadge.strBadge} 
+                <img
+                  src={firstSeasonWithBadge.strBadge}
                   alt={`${league.strLeague} season badge`}
-                  style={{ 
-                    maxWidth: '100%', 
+                  style={{
+                    maxWidth: '100%',
                     maxHeight: '300px',
                     objectFit: 'contain',
                     borderRadius: '8px',
-                    boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
+                    boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
                   }}
                   onError={handleImageError}
                 />
-                <Typography variant="body2" color="text.secondary" sx={{ mt: 2 }}>
+                <Typography
+                  variant="body2"
+                  color="text.secondary"
+                  sx={{ mt: 2 }}
+                >
                   <strong>Season:</strong> {firstSeasonWithBadge.strSeason}
                 </Typography>
-                <Typography variant="caption" color="text.secondary" display="block" sx={{ mt: 1 }}>
-                  Found {seasonData.seasons?.filter(s => s.strBadge).length || 0} seasons with badges
+                <Typography
+                  variant="caption"
+                  color="text.secondary"
+                  display="block"
+                  sx={{ mt: 1 }}
+                >
+                  Found{' '}
+                  {seasonData.seasons?.filter((s) => s.strBadge).length || 0}{' '}
+                  seasons with badges
                 </Typography>
               </Box>
             ) : (
@@ -116,4 +125,6 @@ export const SeasonBadgeDialog: React.FC<SeasonBadgeDialogProps> = React.memo(({
       </DialogContent>
     </Dialog>
   );
-});
+};
+
+export default React.memo(SeasonBadgeDialog);

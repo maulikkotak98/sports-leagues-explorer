@@ -1,5 +1,6 @@
 import React from 'react';
 import { Box, CircularProgress, Alert } from '@mui/material';
+
 import { ERROR_MESSAGES } from '../constants';
 
 interface ListStatesProps {
@@ -9,13 +10,9 @@ interface ListStatesProps {
   emptyMessage?: string;
 }
 
-const boxStyles = { py: 4, px: { xs: 2, sm: 3, md: 4 } }
+const boxStyles = { py: 4, px: { xs: 2, sm: 3, md: 4 } };
 
-/**
- * Component for handling different list states (loading, error, empty)
- * Optimized with React.memo to prevent unnecessary re-renders
- */
-export const ListStates: React.FC<ListStatesProps> = React.memo(({
+const ListStates: React.FC<ListStatesProps> = ({
   isLoading = false,
   error = false,
   isEmpty = false,
@@ -24,7 +21,12 @@ export const ListStates: React.FC<ListStatesProps> = React.memo(({
   if (isLoading) {
     return (
       <Box sx={boxStyles}>
-        <Box display="flex" justifyContent="center" alignItems="center" minHeight="400px">
+        <Box
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+          minHeight="400px"
+        >
           <CircularProgress size={60} />
         </Box>
       </Box>
@@ -50,4 +52,6 @@ export const ListStates: React.FC<ListStatesProps> = React.memo(({
   }
 
   return null;
-});
+};
+
+export default React.memo(ListStates);

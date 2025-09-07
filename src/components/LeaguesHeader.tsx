@@ -1,7 +1,7 @@
 import React from 'react';
 import { Typography, Box } from '@mui/material';
 
-export const LeaguesHeader: React.FC = () => {
+const LeaguesHeader: React.FC = () => {
   return (
     <Box sx={{ textAlign: 'center', mb: { xs: 2, md: 3 } }}>
       <Typography
@@ -20,3 +20,5 @@ export const LeaguesHeader: React.FC = () => {
     </Box>
   );
 };
+
+export default LeaguesHeader;

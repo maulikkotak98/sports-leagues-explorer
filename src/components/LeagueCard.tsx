@@ -1,11 +1,8 @@
 import React, { useState } from 'react';
-import {
-  Typography,
-  Chip,
-  Divider,
-} from '@mui/material';
+import { Typography, Chip, Divider } from '@mui/material';
+
 import type { League } from '../types/api';
-import { SeasonBadgeDialog } from './SeasonBadgeDialog';
+import SeasonBadgeDialog from './SeasonBadgeDialog';
 import {
   LeagueListItem,
   LeagueButton,
@@ -20,11 +17,11 @@ interface LeagueCardProps {
   isFirst?: boolean;
 }
 
-/**
- * LeagueCard component for displaying individual league information
- * Optimized with React.memo to prevent unnecessary re-renders
- */
-export const LeagueCard: React.FC<LeagueCardProps> = React.memo(({ league, isLast = false, isFirst = false }) => {
+const LeagueCard: React.FC<LeagueCardProps> = ({
+  league,
+  isLast = false,
+  isFirst = false,
+}) => {
   const [selectedLeagueId, setSelectedLeagueId] = useState<string | null>(null);
   const [dialogOpen, setDialogOpen] = useState(false);
 
@@ -38,11 +35,10 @@ export const LeagueCard: React.FC<LeagueCardProps> = React.memo(({ league, isLas
     setSelectedLeagueId(null);
   };
 
-
   return (
     <>
       <LeagueListItem>
-        <LeagueButton 
+        <LeagueButton
           onClick={handleCardClick}
           isFirst={isFirst}
           isLast={isLast}
@@ -50,34 +46,24 @@ export const LeagueCard: React.FC<LeagueCardProps> = React.memo(({ league, isLas
         >
           <LeagueCardContent>
             <LeagueHeader>
-              <Typography 
-                variant="h6"
-               
-              >
-                {league.strLeague}
-              </Typography>
-              <Chip 
-                label={league.strSport} 
-                color="primary" 
-                size="small"
-                
-              />
+              <Typography variant="h6">{league.strLeague}</Typography>
+              <Chip label={league.strSport} color="primary" size="small" />
             </LeagueHeader>
-            
+
             <LeagueDetails>
               {league.strLeagueAlternate && (
-                <Typography 
-                  variant="body2" 
-                  color="text.secondary" 
+                <Typography
+                  variant="body2"
+                  color="text.secondary"
                   sx={{ mb: 0.25 }}
                 >
                   <strong>Also known as:</strong> {league.strLeagueAlternate}
                 </Typography>
               )}
-              <Typography 
-                variant="caption" 
-                color="text.secondary" 
-                sx={{ 
+              <Typography
+                variant="caption"
+                color="text.secondary"
+                sx={{
                   fontStyle: 'italic',
                 }}
               >
@@ -87,7 +73,7 @@ export const LeagueCard: React.FC<LeagueCardProps> = React.memo(({ league, isLas
           </LeagueCardContent>
         </LeagueButton>
       </LeagueListItem>
-      
+
       {!isLast && <Divider sx={{ mx: 2 }} />}
 
       <SeasonBadgeDialog
@@ -98,4 +84,6 @@ export const LeagueCard: React.FC<LeagueCardProps> = React.memo(({ league, isLas
       />
     </>
   );
-});
+};
+
+export default React.memo(LeagueCard);

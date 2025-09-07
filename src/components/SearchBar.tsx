@@ -1,6 +1,7 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import { TextField, InputAdornment } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
+
 import { UI_CONFIG } from '../constants';
 
 interface SearchBarProps {
@@ -9,21 +10,15 @@ interface SearchBarProps {
   placeholder?: string;
 }
 
-/**
- * SearchBar component for filtering leagues by name
- * Optimized with React.memo to prevent unnecessary re-renders
- */
-export const SearchBar: React.FC<SearchBarProps> = React.memo(({
+const SearchBar: React.FC<SearchBarProps> = ({
   value,
   onChange,
   placeholder = UI_CONFIG.SEARCH_PLACEHOLDER,
 }) => {
-  const handleChange = useCallback(
-    (event: React.ChangeEvent<HTMLInputElement>) => {
-      onChange(event.target.value);
-    },
-    [onChange]
-  );
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    onChange(event.target.value);
+  };
+
   return (
     <TextField
       fullWidth
@@ -47,4 +42,6 @@ export const SearchBar: React.FC<SearchBarProps> = React.memo(({
       }}
     />
   );
-});
+};
+
+export default React.memo(SearchBar);
