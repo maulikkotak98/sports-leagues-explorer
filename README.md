@@ -63,7 +63,9 @@ src/
 
 ## Demo
 
-https://github.com/user-attachments/assets/demo.mov
+![Demo Video](./demo/demo.mov)
+
+*Click to download and view the demo video*
 
 ## Getting Started
 
